@@ -2,17 +2,12 @@ import { useEffect } from "react";
 import useForm from "../hooks/useForm";
 import { CATEGORIES } from "../utils/helpers";
 
-// This is the "Add Transaction" form that goes INSIDE the modal popup.
-// It uses our custom useForm hook so we don't need a separate useState for
-// every single field (title, amount, category, date, isRecurring).
-
 function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
-  // default empty values for the form
   const { values, handleChange, resetForm, setValues } = useForm({
     title: "",
     amount: "",
     category: "Food & Dining",
-    date: new Date().toISOString().split("T")[0], // today's date, YYYY-MM-DD
+    date: new Date().toISOString().split("T")[0],
     isRecurring: false,
   });
 
@@ -24,21 +19,16 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
     }
   }, [editingExpense]);
 
-  // the recurring toggle isn't a normal input, so it needs its own handler
-  // (checkboxes/switches don't fire onChange with e.target.name + value the same way)
   const toggleRecurring = () => {
     setValues((prev) => ({ ...prev, isRecurring: !prev.isRecurring }));
   };
 
-  // runs when the form is submitted
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Basic validation
     if (!values.title.trim() || !values.amount) {
       alert("Please fill in the title and amount!");
       return;
     }
-    // Only alphabets and spaces are allowed
     const nameRegex = /^[A-Za-z\s]+$/;
     if (!nameRegex.test(values.title.trim())) {
       alert("Title can contain only letters and spaces.");
@@ -49,9 +39,7 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
     } else {
       addExpense(values);
     }
-
     resetForm();
-
     if (onDone) {
       onDone();
     }
@@ -59,9 +47,8 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      {/* big amount input up top, like in the design */}
       <div className="mb-4 text-center">
-        <label className="text-xs text-gray-400 block mb-1">$</label>
+        <label className="text-xs text-gray-400 block mb-1">₹</label>
         <input
           type="number"
           name="amount"
@@ -73,7 +60,6 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
         />
       </div>
 
-      {/* Title input */}
       <div className="mb-3">
         <label className="text-xs text-gray-500">Title / Description</label>
         <input
@@ -87,7 +73,6 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-3">
-        {/* Category dropdown */}
         <div>
           <label className="text-xs text-gray-500">Category</label>
           <select
@@ -104,7 +89,6 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
           </select>
         </div>
 
-        {/* Date input */}
         <div>
           <label className="text-xs text-gray-500">Date</label>
           <input
@@ -117,7 +101,6 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
         </div>
       </div>
 
-      {/* recurring expense toggle - just a styled checkbox basically */}
       <div className="flex items-center justify-between bg-gray-50 rounded-md px-3 py-2 mb-5">
         <div>
           <p className="text-sm text-gray-700">Recurring Expense</p>
@@ -138,7 +121,6 @@ function ExpenseForm({ addExpense, updateExpense, editingExpense, onDone }) {
         </button>
       </div>
 
-      {/* Cancel + Save buttons side by side */}
       <div className="flex gap-2">
         <button
           type="button"

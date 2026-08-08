@@ -13,8 +13,6 @@ The app now has 4 real pages you can switch between using the sidebar:
   and sorting
 - **Reports** - a spending-over-time line chart, a category split donut
   chart, and a monthly budget-vs-spent table (built with `recharts`)
-- **Settings** - profile card, a (placeholder) currency preference, the
-  list of categories, and a "Clear All Data" button
 
 Clicking "+ Add Expense" anywhere opens a popup (modal) with the add
 transaction form, including a recurring-expense toggle.

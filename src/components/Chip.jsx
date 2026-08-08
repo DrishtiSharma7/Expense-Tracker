@@ -1,7 +1,3 @@
-// Small reusable "chip" component - just a rounded pill with text in it
-// I use this to show category names in the list and in the filter bar.
-// isActive prop is used only in the filter bar to highlight the selected chip.
-
 function Chip({ label, colorClasses, isActive, onClick }) {
   return (
     <button

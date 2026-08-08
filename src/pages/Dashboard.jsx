@@ -1,36 +1,19 @@
-import { Plus, ShoppingBag, Home, Car, Film, DollarSign, Tag } from "lucide-react";
+import { Plus, ShoppingBag, Home, Car, Film, DollarSign, Tag, Shell } from "lucide-react";
 import Summary from "../components/Summary";
-import {
-  formatCurrency,
-  formatDate,
-  getCategoryTotals,
-  getCategoryColor,
-} from "../utils/helpers";
+import { formatCurrency, formatDate, getCategoryTotals, getCategoryColor } from "../utils/helpers";
 
-// icons per category, same idea as in ExpenseItem.jsx
 const CATEGORY_ICONS = {
   "Food & Dining": ShoppingBag,
   "Housing & Rent": Home,
-  Transportation: Car,
-  Entertainment: Film,
-  Income: DollarSign,
+  "Transportation": Car,
+  "Entertainment": Film,
+  "Income": DollarSign,
+  "Other": Shell,
 };
 
-// This is the "Dashboard" page - the first thing you see when you open the app.
-// It shows: the 3 summary cards, a short list of recent transactions,
-// and a "spending by category" breakdown with little progress bars.
-//
-// props:
-// - expenses: the full list of expenses
-// - onOpenAddModal: function to open the Add Expense popup
-// - goToTransactions: function to switch the sidebar tab to "Transactions"
 function Dashboard({ expenses, onOpenAddModal, goToTransactions }) {
-  // only show the last 5 transactions here (most recent first)
   const recentExpenses = expenses.slice(0, 5);
-
-  // group expenses by category so we can show the little bars
   const categoryTotals = getCategoryTotals(expenses);
-  // find the biggest total so we can scale the progress bars (0-100%)
   const maxTotal = Math.max(...categoryTotals.map((c) => c.total), 1);
 
   return (
@@ -42,7 +25,6 @@ function Dashboard({ expenses, onOpenAddModal, goToTransactions }) {
             Here's your financial summary for this month.
           </p>
         </div>
-        {/* quick add button in the top corner */}
         <button
           onClick={onOpenAddModal}
           className="flex items-center gap-1 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-3 py-2 rounded-md"
@@ -57,13 +39,11 @@ function Dashboard({ expenses, onOpenAddModal, goToTransactions }) {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Recent transactions card */}
         <div className="bg-white rounded-xl shadow p-4">
           <div className="flex items-center justify-between mb-2">
             <h2 className="text-sm font-semibold text-gray-700">
               Recent Transactions
             </h2>
-            {/* clicking this just switches the sidebar tab, doesn't need a router */}
             <button
               onClick={goToTransactions}
               className="text-xs text-indigo-600 hover:underline"
@@ -116,12 +96,10 @@ function Dashboard({ expenses, onOpenAddModal, goToTransactions }) {
           )}
         </div>
 
-        {/* Spending by category card */}
         <div className="bg-white rounded-xl shadow p-4">
           <h2 className="text-sm font-semibold text-gray-700 mb-3">
             Spending by Category
           </h2>
-
           {categoryTotals.length === 0 ? (
             <p className="text-sm text-gray-400 py-6 text-center">
               Nothing to show yet.
@@ -133,7 +111,6 @@ function Dashboard({ expenses, onOpenAddModal, goToTransactions }) {
                   <span>{item.category}</span>
                   <span>{formatCurrency(item.total)}</span>
                 </div>
-                {/* simple progress bar - width is just a percentage of the biggest category */}
                 <div className="w-full bg-gray-100 rounded-full h-2">
                   <div
                     className="bg-indigo-500 h-2 rounded-full"

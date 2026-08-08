@@ -1,23 +1,6 @@
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  PieChart,
-  Pie,
-  Cell,
-} from "recharts";
-import {
-  formatCurrency,
-  getCategoryTotals,
-  getSpendingOverTime,
-  CATEGORY_BUDGETS,
-} from "../utils/helpers";
+import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import { formatCurrency, getCategoryTotals, getSpendingOverTime, CATEGORY_BUDGETS } from "../utils/helpers";
 
-// hex colors for the pie chart slices - recharts needs actual hex colors,
-// not tailwind class names, so I made a separate little list just for this
 const PIE_COLORS = [
   "#6366f1", // indigo
   "#f97316", // orange
@@ -27,12 +10,6 @@ const PIE_COLORS = [
   "#22c55e", // green
   "#6b7280", // gray
 ];
-
-// This is the "Spending Reports" page.
-// It has a line chart (spending over time), a donut/pie chart (category
-// split) and a table comparing spending vs budget for each category.
-// I'm using the "recharts" library here since building charts from scratch
-// with SVG would take forever.
 
 function Reports({ expenses }) {
   const categoryTotals = getCategoryTotals(expenses);
@@ -48,7 +25,6 @@ function Reports({ expenses }) {
       </p>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
-        {/* Line chart - expenses over time */}
         <div className="lg:col-span-2 bg-white rounded-xl shadow p-4">
           <h2 className="text-sm font-semibold text-gray-700 mb-3">
             Expenses Over Time
@@ -58,7 +34,6 @@ function Reports({ expenses }) {
               Add some expenses to see this chart.
             </p>
           ) : (
-            // ResponsiveContainer just makes the chart fill the width of its parent div
             <ResponsiveContainer width="100%" height={220}>
               <LineChart data={overTimeData}>
                 <XAxis dataKey="date" tick={{ fontSize: 11 }} />
@@ -76,7 +51,6 @@ function Reports({ expenses }) {
           )}
         </div>
 
-        {/* Donut chart - category split */}
         <div className="bg-white rounded-xl shadow p-4">
           <h2 className="text-sm font-semibold text-gray-700 mb-3">
             Category Split
@@ -96,7 +70,6 @@ function Reports({ expenses }) {
                   outerRadius={80}
                   paddingAngle={2}
                 >
-                  {/* give each slice of the pie a different color from our list above */}
                   {categoryTotals.map((entry, index) => (
                     <Cell
                       key={entry.category}
@@ -111,7 +84,6 @@ function Reports({ expenses }) {
         </div>
       </div>
 
-      {/* Monthly summary table - category vs budget */}
       <div className="bg-white rounded-xl shadow p-4">
         <h2 className="text-sm font-semibold text-gray-700 mb-3">
           Monthly Summary
@@ -123,7 +95,6 @@ function Reports({ expenses }) {
           </p>
         ) : (
           <div>
-            {/* table header row */}
             <div className="grid grid-cols-4 text-xs text-gray-400 pb-2 border-b border-gray-100">
               <span>Category</span>
               <span>Spent</span>
@@ -132,11 +103,9 @@ function Reports({ expenses }) {
             </div>
 
             {categoryTotals.map((item) => {
-              // fall back to $500 budget if I forgot to set one for this category
               const budget = CATEGORY_BUDGETS[item.category] || 500;
               const percent = Math.min((item.total / budget) * 100, 100);
               const isOverBudget = item.total > budget;
-
               return (
                 <div
                   key={item.category}
@@ -149,7 +118,6 @@ function Reports({ expenses }) {
                   <span className="text-gray-500">
                     {formatCurrency(budget)}
                   </span>
-                  {/* progress bar - turns red if we went over budget */}
                   <div className="w-full bg-gray-100 rounded-full h-2">
                     <div
                       className={`h-2 rounded-full ${

@@ -1,17 +1,9 @@
-import {
-  LayoutDashboard,
-  Receipt,
-  PieChart,
-  Settings,
-  Wallet,
-  X,
-} from "lucide-react";
+import { LayoutDashboard, Receipt, PieChart, Settings, Wallet, X} from "lucide-react";
 
 const NAV_ITEMS = [
   { name: "Dashboard", icon: LayoutDashboard },
   { name: "Transactions", icon: Receipt },
   { name: "Reports", icon: PieChart },
-  { name: "Settings", icon: Settings },
 ];
 
 function Sidebar({
@@ -27,7 +19,6 @@ function Sidebar({
 
   return (
     <>
-      {/* Overlay */}
       {isSidebarOpen && (
         <div
           className="fixed inset-0 bg-black/50 z-40 lg:hidden"
@@ -47,7 +38,6 @@ function Sidebar({
           lg:translate-x-0 lg:static lg:flex
         `}
       >
-        {/* Mobile Close Button */}
         <div className="flex justify-end lg:hidden mb-4">
           <button
             onClick={() => setIsSidebarOpen(false)}
@@ -57,7 +47,6 @@ function Sidebar({
           </button>
         </div>
 
-        {/* Logo */}
         <div className="flex items-center gap-2 mb-8 px-2">
           <Wallet className="text-indigo-400" size={22} />
           <span className="font-semibold text-white text-lg">
@@ -65,12 +54,10 @@ function Sidebar({
           </span>
         </div>
 
-        {/* Navigation */}
         <nav className="flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
             const Icon = item.icon;
             const isActive = activeTab === item.name;
-
             return (
               <button
                 key={item.name}
@@ -89,7 +76,6 @@ function Sidebar({
           })}
         </nav>
 
-        {/* User */}
         <div className="mt-auto flex items-center gap-2 px-2 pt-4 border-t border-gray-800">
           <div className="w-8 h-8 rounded-full bg-indigo-500 flex items-center justify-center text-white text-sm font-semibold">
             DS

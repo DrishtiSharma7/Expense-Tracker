@@ -4,30 +4,11 @@ import Filters from "../components/Filters";
 import ExpenseList from "../components/ExpenseList";
 import useFilteredExpenses from "../hooks/useFilteredExpenses";
 
-// This is the full "Transaction History" page.
-// It has the search bar + category chips + sort dropdown (Filters component)
-// and then the full list underneath (ExpenseList component).
-//
-// I keep the search/category/sortBy state HERE (inside this page) instead of
-// in App.jsx, because these filters only matter for this one page.
-
-function Transactions({
-  expenses,
-  onDelete,
-  onEdit,
-  onOpenAddModal,
-}) {
+function Transactions({ expenses, onDelete, onEdit, onOpenAddModal }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("All");
   const [sortBy, setSortBy] = useState("date");
-
-  // run everything through our custom filtering hook
-  const filteredExpenses = useFilteredExpenses(expenses, {
-    searchTerm,
-    category,
-    sortBy,
-  });
-
+  const filteredExpenses = useFilteredExpenses(expenses, { searchTerm, category, sortBy });
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
@@ -58,10 +39,10 @@ function Transactions({
       />
 
       <ExpenseList
-  expenses={filteredExpenses}
-  onDelete={onDelete}
-  onEdit={onEdit}
-/>
+        expenses={filteredExpenses}
+        onDelete={onDelete}
+        onEdit={onEdit}
+      />
     </div>
   );
 }
