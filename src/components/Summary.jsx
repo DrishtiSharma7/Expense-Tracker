@@ -2,9 +2,7 @@ import { Wallet, TrendingUp, TrendingDown } from "lucide-react";
 import { formatCurrency } from "../utils/helpers";
 
 function Summary({ expenses }) {
-  const totalIncome = expenses
-    .filter((exp) => exp.category === "Income")
-    .reduce((sum, exp) => sum + Number(exp.amount), 0);
+  const totalIncome = expenses.filter((exp) => exp.category === "Income").reduce((sum, exp) => sum + Number(exp.amount), 0);
 
   const totalExpense = expenses
     .filter((exp) => exp.category !== "Income")

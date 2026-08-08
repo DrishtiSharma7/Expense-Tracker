@@ -11,14 +11,11 @@ function Transactions({ expenses, onDelete, onEdit, onOpenAddModal }) {
   const filteredExpenses = useFilteredExpenses(expenses, { searchTerm, category, sortBy });
   return (
     <div>
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-xl font-bold text-gray-800">
             Transaction History
           </h1>
-          <p className="text-sm text-gray-500">
-            Every expense and income you've logged.
-          </p>
         </div>
         <button
           onClick={onOpenAddModal}

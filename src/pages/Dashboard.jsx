@@ -21,9 +21,7 @@ function Dashboard({ expenses, onOpenAddModal, goToTransactions }) {
       <div className="flex items-center justify-between mb-1">
         <div>
           <h1 className="text-xl font-bold text-gray-800">Overview</h1>
-          <p className="text-sm text-gray-500">
-            Here's your financial summary for this month.
-          </p>
+          
         </div>
         <button
           onClick={onOpenAddModal}
