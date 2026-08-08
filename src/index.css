@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* small custom scrollbar tweak, not really important */
+body {
+  background-color: #f3f4f6;
+}
